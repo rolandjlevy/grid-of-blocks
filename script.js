@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const getRandomNum = (max) => Math.floor(Math.random() * max) + 1;
 
   const highlightRandomItem = () => {
-    const randItemNum = getRandomNum(maxSize);
+    const randItemNum = String(getRandomNum(maxSize));
     $('.active')?.classList.remove('active');
     $(`#item_${randItemNum}`).classList.add('active');
   };
