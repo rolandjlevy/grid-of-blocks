@@ -15,11 +15,12 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 
   const size = getSize() || DEFAULT_SIZE;
+  const maxSize = size * size;
 
   $('.grid-container').style.gridTemplateColumns = `repeat(${size}, 1fr)`;
   $('.grid-container').style.gridTemplateRows = `repeat(${size}, 1fr)`;
 
-  const matrix = Array(size * size).fill({});
+  const matrix = Array(maxSize).fill({});
 
   matrix.forEach((item, index) => {
     const gridItemProps = {
@@ -33,7 +34,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const getRandomNum = (max) => Math.floor(Math.random() * max) + 1;
 
-  const randItemNum = getRandomNum(size * size);
+  const highlightRandomItem = () => {
+    const randItemNum = getRandomNum(maxSize);
+    $('.active')?.classList.remove('active');
+    $(`#item_${randItemNum}`).classList.add('active');
+  };
 
-  $(`#item_${randItemNum}`).classList.add('active');
+  highlightRandomItem();
+
+  setInterval(highlightRandomItem, 200);
 });

@@ -12,4 +12,8 @@ npm i -g http-server nodemon
 nodemon --exec http-server
 ```
 
+```bash
+http-server -c-1
+```
+
 - Click 'Open in Browser' or from the Terminal, click the link Forwarded Address link from PORTS
