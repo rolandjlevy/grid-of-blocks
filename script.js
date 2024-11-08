@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ArrowLeft: i % size === 0 ? null : i - 1,
       ArrowRight: (i + 1) % (size === 0) ? null : i + 1,
     };
-    return nextPos[direction];
+    return nextPos[direction] || null;
   };
 
   const moveBlock = (direction) => {
