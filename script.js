@@ -37,12 +37,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const sizePlus = i + size;
     const sizeMinus = i - size;
     const nextPos = {
-      ArrowUp: sizeMinus < 0 ? null : sizeMinus,
-      ArrowDown: sizePlus >= maxSize ? null : sizePlus,
-      ArrowLeft: i % size === 0 ? null : i - 1,
-      ArrowRight: (i + 1) % (size === 0) ? null : i + 1,
+      ArrowUp: sizeMinus < 0 ? false : sizeMinus,
+      ArrowDown: sizePlus >= maxSize ? false : sizePlus,
+      ArrowLeft: i % size === 0 ? false : i - 1,
+      ArrowRight: (i + 1) % size === 0 ? false : i + 1,
     };
-    return nextPos[direction] || null;
+
+    const validKeys = Object.keys(nextPos).includes(direction);
+    if (!validKeys) return false;
+    console.log(direction, ' <<< direction');
+    console.log(validKeys, ' <<< validKeys');
+    return nextPos[direction];
   };
 
   const moveBlock = (direction) => {
@@ -50,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const [indexString] = activeItem.id.match(/\d+/);
     const index = Number(indexString) - 1;
     const nextItemIndex = getNextPos(direction, index);
-    if (nextItemIndex !== null) {
+    if (nextItemIndex >= 0) {
       activeItem.classList.remove('active');
       $(`#item_${nextItemIndex + 1}`).classList.add('active');
     }
