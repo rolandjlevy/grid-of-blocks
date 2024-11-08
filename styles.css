@@ -1,5 +1,5 @@
 :root {
-  --block-width: 20px;
+  --block-width: 30px;
   --blue: #4e82ff;
   --deep-blue: #000066;
   --lime-green: #a6ff75;
@@ -22,7 +22,7 @@ body {
 
 .grid-container {
   display: grid;
-  gap: 5px;
+  gap: 3px;
 }
 
 .grid-item {

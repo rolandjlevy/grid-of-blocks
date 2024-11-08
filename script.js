@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
   const $ = (elem) => document.querySelector(elem);
 
+  const getRandomNum = (max) => Math.floor(Math.random() * max) + 1;
+
   const createElem = (tagName, props = {}) => {
     const el = document.createElement(tagName);
     return Object.assign(el, props);
@@ -12,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return Number(params.get(key));
   };
 
-  const DEFAULT_SIZE = 10;
+  const DEFAULT_SIZE = 7;
   const size = getSearchParamValue('size') || DEFAULT_SIZE;
   const maxSize = size * size;
 
@@ -22,53 +24,50 @@ document.addEventListener('DOMContentLoaded', () => {
   const matrix = Array(maxSize).fill({});
 
   matrix.forEach((_, index) => {
+    const x = (index % size) + 1;
+    const y = Math.floor(index / size) + 1;
     const gridItemProps = {
       className: 'grid-item',
-      textContent: index + 1,
-      id: `item_${index + 1}`,
+      textContent: `${x},${y}`,
+      id: `x${x}_y${y}`,
     };
     const gridItem = createElem('div', gridItemProps);
     $('.grid-container').appendChild(gridItem);
   });
 
-  const getRandomNum = (max) => Math.floor(Math.random() * max) + 1;
-
-  const getNextPos = (direction, i) => {
-    const sizePlus = i + size;
-    const sizeMinus = i - size;
+  const getNextPos = (direction, id) => {
+    const [xPos, yPos] = id.match(/\d+/g);
+    const x = Number(xPos);
+    const y = Number(yPos);
     const nextPos = {
-      ArrowUp: sizeMinus < 0 ? false : sizeMinus,
-      ArrowDown: sizePlus >= maxSize ? false : sizePlus,
-      ArrowLeft: i % size === 0 ? false : i - 1,
-      ArrowRight: (i + 1) % size === 0 ? false : i + 1,
+      arrowup: { x, y: y > 1 ? y - 1 : y },
+      arrowdown: { x, y: y < size ? y + 1 : y },
+      arrowleft: { x: x > 1 ? x - 1 : x, y },
+      arrowright: { x: x < size ? x + 1 : x, y },
     };
-
-    const validKeys = Object.keys(nextPos).includes(direction);
-    if (!validKeys) return false;
-    console.log(direction, ' <<< direction');
-    console.log(validKeys, ' <<< validKeys');
+    const validKey = Object.keys(nextPos).includes(direction);
+    if (!validKey) return false;
     return nextPos[direction];
   };
 
   const moveBlock = (direction) => {
     const activeItem = $('.active');
-    const [indexString] = activeItem.id.match(/\d+/);
-    const index = Number(indexString) - 1;
-    const nextItemIndex = getNextPos(direction, index);
-    if (nextItemIndex >= 0) {
-      activeItem.classList.remove('active');
-      $(`#item_${nextItemIndex + 1}`).classList.add('active');
-    }
+    const pos = getNextPos(direction, activeItem.id);
+    if (!pos) return;
+    activeItem.classList.remove('active');
+    $(`#x${pos.x}_y${pos.y}`).classList.add('active');
   };
 
   document.addEventListener('keydown', (e) => {
-    moveBlock(e.key);
+    moveBlock(e.key.toLowerCase());
   });
 
   const highlightRandomItem = () => {
-    const randItemNum = String(getRandomNum(maxSize));
+    const x = getRandomNum(size);
+    const y = getRandomNum(size);
+    const randItemNum = `x${x}_y${y}`;
     $('.active')?.classList.remove('active');
-    $(`#item_${randItemNum}`).classList.add('active');
+    $(`#${randItemNum}`).classList.add('active');
   };
 
   highlightRandomItem();
