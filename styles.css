@@ -1,5 +1,16 @@
 :root {
   --block-width: 20px;
+  --blue: #4e82ff;
+  --deep-blue: #000066;
+  --lime-green: #a6ff75;
+  --orange: #ffcc00;
+  --yellow: #ffee66;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(var(--blue), var(--lime-green));
 }
 
 .container {
@@ -18,8 +29,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #eee;
-  border: 1px solid #ccc;
+  background-color: #fff;
+  color: var(--blue);
+  border: 1px solid transparent;
   padding: 3px;
   width: var(--block-width);
   aspect-ratio: 1 / 1;
@@ -28,6 +40,6 @@
 }
 
 .active {
-  background-color: #009966;
-  color: white;
+  background-color: var(--yellow);
+  color: var(--deep-blue);
 }
