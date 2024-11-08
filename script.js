@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return Number(params.get(key));
   };
 
-  const DEFAULT_SIZE = 7;
+  const DEFAULT_SIZE = 30;
   const size = getSearchParamValue('size') || DEFAULT_SIZE;
   const maxSize = size * size;
 
@@ -28,8 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const y = Math.floor(index / size) + 1;
     const gridItemProps = {
       className: 'grid-item',
-      textContent: `${x},${y}`,
       id: `x${x}_y${y}`,
+      // textContent: `${x},${y}`,
     };
     const gridItem = createElem('div', gridItemProps);
     $('.grid-container').appendChild(gridItem);
