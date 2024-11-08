@@ -35,10 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     $('.grid-container').appendChild(gridItem);
   });
 
-  const getNextPos = (direction, id) => {
-    const [xPos, yPos] = id.match(/\d+/g);
-    const x = Number(xPos);
-    const y = Number(yPos);
+  const getNextPos = (direction, x, y) => {
     const nextPos = {
       arrowup: { x, y: y > 1 ? y - 1 : y },
       arrowdown: { x, y: y < size ? y + 1 : y },
@@ -52,7 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const moveBlock = (direction) => {
     const activeItem = $('.active');
-    const pos = getNextPos(direction, activeItem.id);
+    const [x, y] = activeItem.id.match(/\d+/g);
+    const pos = getNextPos(direction, Number(x), Number(y));
     if (!pos) return;
     activeItem.classList.remove('active');
     $(`#x${pos.x}_y${pos.y}`).classList.add('active');
