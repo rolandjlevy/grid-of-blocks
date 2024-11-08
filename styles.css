@@ -1,5 +1,6 @@
 :root {
   --block-width: 5px;
+  --grey: #ccccdd;
   --blue: #4e82ff;
   --deep-blue: #000066;
   --lime-green: #a6ff75;
@@ -43,4 +44,8 @@ body {
 .active {
   background-color: var(--red);
   color: var(--deep-blue);
+}
+
+.obstacle {
+  background-color: var(--grey);
 }

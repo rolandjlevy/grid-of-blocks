@@ -35,16 +35,33 @@ document.addEventListener('DOMContentLoaded', () => {
     $('.grid-container').appendChild(gridItem);
   });
 
+  const OBSTABLE_COUNT = 30;
+  const obstacles = Array(OBSTABLE_COUNT).fill({});
+  const obstaclesPos = [];
+
+  obstacles.forEach((item) => {
+    const x = getRandomNum(size);
+    const y = getRandomNum(size);
+    const randItemNum = `x${x}_y${y}`;
+    obstaclesPos.push({ x, y });
+    $(`#${randItemNum}`).classList.add('obstacle');
+  });
+
   const getNextPos = (direction, x, y) => {
-    const nextPos = {
+    const nextPosMapping = {
       arrowup: { x, y: y > 1 ? y - 1 : y },
       arrowdown: { x, y: y < size ? y + 1 : y },
       arrowleft: { x: x > 1 ? x - 1 : x, y },
       arrowright: { x: x < size ? x + 1 : x, y },
     };
-    const validKey = Object.keys(nextPos).includes(direction);
+    const validKey = Object.keys(nextPosMapping).includes(direction);
     if (!validKey) return false;
-    return nextPos[direction];
+    const nextPos = nextPosMapping[direction];
+    const blocked = obstaclesPos.find((item) => {
+      return item.x === nextPos.x && item.y === nextPos.y;
+    });
+    if (blocked) return false;
+    return nextPos;
   };
 
   const moveBlock = (direction) => {
@@ -69,4 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   highlightRandomItem();
+
+ 
 });
