@@ -57,9 +57,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const validKey = Object.keys(nextPosMapping).includes(direction);
     if (!validKey) return false;
     const nextPos = nextPosMapping[direction];
-    const blocked = obstaclesPos.find((item) => {
-      return item.x === nextPos.x && item.y === nextPos.y;
-    });
+    const blocked = obstaclesPos.find(
+      (item) => item.x === nextPos.x && item.y === nextPos.y,
+    );
     if (blocked) return false;
     return nextPos;
   };
@@ -86,6 +86,4 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   highlightRandomItem();
-
- 
 });
