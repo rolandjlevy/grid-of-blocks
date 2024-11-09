@@ -1,5 +1,7 @@
 # Grid of blocks
 
+View [live demo](https://grid-of-blocks.vercel.app)
+
 ### How to run this app in Github CodeSpaces
 
 - Run http-server with nodemon
