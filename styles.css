@@ -47,5 +47,6 @@ body {
 }
 
 .obstacle {
-  background-color: var(--grey);
+  background-color: white;
+  opacity: 0.5;
 }
