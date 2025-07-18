@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     $('.grid-container').appendChild(gridItem);
   });
 
-  const OBSTABLE_COUNT = 30;
+  const OBSTABLE_COUNT = maxSize;
   const obstacles = Array(OBSTABLE_COUNT).fill({});
   const obstaclesPos = [];
 
